@@ -1,0 +1,19 @@
+{
+    "name": "adewumiadebayo/exads",
+    "description": "Exads test",
+    "type": "project",
+    "require": {
+        "exads/ab-test-data": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Adewumiadebayo\\Exads\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "adewumi adebayo",
+            "email": "debaryour@gmail.com"
+        }
+    ]
+}
