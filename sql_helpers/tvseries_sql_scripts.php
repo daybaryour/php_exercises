@@ -29,11 +29,11 @@
         public function defaultPopulateTvSeries() {
             return "INSERT INTO tv_series (title, channel, genre)
             VALUES
-                ('Breaking Bad','AMC','neo-western crime drama'),
-                ('The Last Dance','Netflix','sports documentary'),
-                ('The Last Dance','Netflix','sports documentary'),
-                ('The Last Dance','Netflix','sports documentary'),
-                ('The Last Dance','Netflix','sports documentary'),
+                ('Suits','Netflix','Legal drama'),
+                ('Breaking Bad','AMC','Neo-Western crime drama '),
+                ('How i met your mother','CBS','sitcom romantic comedy'),
+                ('Kyle XY','ABC Family','science Fiction, teen drama'),
+                ('House of Cards','Netflix','Political Drama),
                 ('Game of Thrones','HBO','fantasy drama'); ";
         }
 
@@ -43,7 +43,12 @@
                 (1, '22:00:00', '1'),
                 (1, '23:00:00', '2'),
                 (2, '04:00:00', '3'),
-                (2, '15:00:00', '4'),
+                (3, '04:00:00', '1'),
+                (4, '04:00:00', '6'),
+                (6, '04:00:00', '1'),
+                (2, '04:00:00', '3'),
+                (5, '04:00:00', '2'),
+                (6, '15:00:00', '4'),
                 (3, '16:00:00', '5'); ";
         }
 
