@@ -47,6 +47,6 @@
         }
 
         public function getNextTvSeries() {
-            return "SELECT * FROM tv_series INNER JOIN tv_series_intervals tv_intervals ON tv_series.id=tv_intervals.id_tv_series";
+            return "SELECT tv_series.id, title, channel, genre, week_day, show_time, WEEKDAY(:date) AS curr_weekday , CONCAT(DATE_ADD(:date, INTERVAL IF(WEEKDAY(:date) >= week_day, IF(WEEKDAY(:date) - week_day = 0, 0, 7-WEEKDAY(:date) + week_day), week_day - WEEKDAY(:date)) DAY),' ', show_time) AS next_show_time FROM tv_series INNER JOIN tv_series_intervals as tv_intervals ON tv_series.id = tv_intervals.id_tv_series";
         }
     }

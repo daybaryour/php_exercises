@@ -13,3 +13,53 @@
             //     ]
             // ]
     // The code needs to be object-oriented and scalable. The number of designs per promotion may vary.
+
+    namespace exadsTest4;
+    use Exads\ABTestData;
+
+    include_once './vendor/autoload.php';
+
+
+    class AbTesting
+    {
+        public function getData(int $promoId): array
+        {
+            $abTest = new ABTestData($promoId);
+            $promotion = $abTest->getPromotionName();
+            $designs = $abTest->getAllDesigns();
+
+            $item_data_array = ['id' => $promoId, 'name' => $promotion, 'designs' => $designs];
+            return $item_data_array;
+        }
+    }
+
+    class DisplayAbTesting extends AbTesting {
+        public $rand_promo_id;
+        public function __construct() {
+            $this->rand_promo_id = rand(1, 3);
+        }
+
+        public function formatAbTestUrl($design_array) {
+            return http_build_query($design_array);
+        }
+    }
+
+    $ab_tests = new DisplayAbTesting;
+    $ab_tests_data = $ab_tests->getData($ab_tests->rand_promo_id);
+?>
+
+
+<html>
+    <body>
+        <h2> Promotion name :- <?= $ab_tests_data['name'] ?></h2>
+
+        <div>
+            <ul>
+                <?php foreach($ab_tests_data['designs'] as $design): ?>
+                    <li><a href="test4_display_design.php?<?= $ab_tests->formatAbTestUrl($design) ?>&name=<?= $ab_tests_data['name'] ?>&promo_id=<?= $ab_tests_data['id'] ?>">Click here to view design url</a></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </body>
+</html>
+
