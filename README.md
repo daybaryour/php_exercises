@@ -31,13 +31,13 @@ provided by this library: packagist.org/exads/ab-test-data
 
 
 # Minimum php Config 7.13, 
-Solution was done on php 8.12 and MySQL 
-No linting tools were used 
-No Unit tests written 
+* Solution was done on php 8.12 and MySQL 
+* No linting tools were used 
+* No Unit tests written 
 
 
 # Dependencies
-Conposer
+Composer
 
 
 #SQL files are in sql_helpers/tvseries_sql_helpers.php
