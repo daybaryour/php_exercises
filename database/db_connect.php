@@ -3,8 +3,13 @@
         private $host = "localhost";
         private $user = "root";
         private $password = "";
-        private $database = "exads";
+        private $database = "exads"; //Could be protected bit don't want to make this dynamic your db name must be exads
 
+        // in prod use environment variables or sumfn more secure
+
+        /**
+         * PDO connecting to the database using database string
+         */
         protected function connect() {
             try {
                 $database_string = "mysql:host=".$this->host.";dbname=".$this->database;

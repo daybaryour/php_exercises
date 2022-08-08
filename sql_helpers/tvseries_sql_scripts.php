@@ -1,4 +1,5 @@
 <?php
+    //SQL Scripts Helpers lazy methods to return sql scripts of the TV series function
     Class SqlScripts {
         public function checkTableExists() {
             return "SELECT table_name FROM information_schema.tables WHERE table_schema = 'exads' AND table_name = 'tv_series' OR table_name = 'tv_series_intervals';";

@@ -72,6 +72,7 @@
             $execute_array = [];
             $sql_scripts = new SqlScripts;
             
+            //manage the time and date set for the filters, same time is converted into different formats here
             if (!$time_date) { //if there is no time set default to current time
                 $date = date('Y-m-d'); 
                 $time_date = date('Y-m-d h:i:s'); 
@@ -79,11 +80,12 @@
                 $date = date('Y-m-d', strtotime($time_date));
                 $time_date = date('Y-m-d h:i:s', strtotime($time_date));
             } 
+            //variable to be executed are loading in array
             $execute_array = ['date' => $date, 'datetime' => $time_date];
 
             $sql_get_next_tv_series = $sql_scripts->getNextTvSeries();
 
-            if($tv_series_title) {
+            if($tv_series_title) { //if the title option is set, do the needful
                 $additional_params .= " WHERE tv_series.title LIKE '%".$tv_series_title."%' ";
             }
 
@@ -98,7 +100,6 @@
 
 
             $next_tv_series = $prepare_query->fetchAll();
-
             $this->next_tv_series = $next_tv_series;
         }
     }
@@ -112,49 +113,54 @@
         header('Location: /test3_next_tv_series.php'); //redirect back to original page
     }
 
+    //Check if dtabase is populated before checkign for post requests
     if($tv_series->is_db_populated) {
         if ($_POST) {
-            $tv_series_name = $_POST["series_name"];
-            $tv_series_date = $_POST["series_date"];
+            $tv_series_name = $_POST["series_name"]; //form variables
+            $tv_series_date = $_POST["series_date"]; //form variables
 
-            $tv_series->getNextTVSeries($tv_series_date, $tv_series_name);
+            $tv_series->getNextTVSeries($tv_series_date, $tv_series_name); //passing the variables into the method this time around
         } else {
-            $tv_series->getNextTVSeries();
+            $tv_series->getNextTVSeries(); //no additional parameters passed default parameters used
         }
     }
 ?>
 
-
+<!DOCTYPE html>
 <html>
     <head>
-        <link re
+        <link rel="stylesheet" href="./assets/styles.css?v=<?php echo time(); ?>" type="text/css">
     </head>
     <body>
-        <?php if(!$tv_series->is_db_populated): ?>
-            <div><a href="?populate_db=true">Populate database</a></div>
-        <?php else: ?>
-            <div>
-                
-                <form action="" method="POST">
-                    <input type="text" name="series_name" placeholder="filter by name or a part of the name" /> <br/>
-                    <input type="datetime-local" name="series_date" /> <br />
-
-                    <input type="submit" />
-                </form>
+        <section class="wrapper">
+            <?php if(!$tv_series->is_db_populated): ?>
+                <div><a href="?populate_db=true">Populate database</a></div>
+            <?php else: ?>
                 <div>
-                    <h2>Next TV Series </h2>
-                    <ul>
-                        <?php foreach($tv_series->next_tv_series as $curr_series): ?>
-                            <li><?= $curr_series['title'] ?></li>
-                            <li><?= $curr_series['channel'] ?></li>
-                            <li><?= $curr_series['genre'] ?></li>
-                            <li><?= $curr_series['show_time'] ?></li>
-                            <li><?= $tv_series->weekdays[$curr_series['week_day']] ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <img src="https://images.g2crowd.com/uploads/product/image/social_landscape/social_landscape_05ecef678030605552627cc6ad335478/exads.png" height="100" />
+                    <h1>Test 3 </h1>
+                    <form action="" method="POST">
+                        <input type="text" name="series_name" placeholder="filter by name or a part of the name" /> <br/>
+                        <input type="datetime-local" name="series_date" /> <br />
+
+                        <input type="submit" />
+                    </form>
+                    <hr />
+                    <div>
+                        <h2>Next Showing TV Series </h2>
+                        <ul>
+                            <?php foreach($tv_series->next_tv_series as $curr_series): ?>
+                                <li>Series name -- <?= $curr_series['title'] ?></li>
+                                <li>Channel -- <?= $curr_series['channel'] ?></li>
+                                <li>Genre -- <?= $curr_series['genre'] ?></li>
+                                <li>Showing time -- <?= $curr_series['show_time'] ?></li>
+                                <li>Day of Week -- <?= $tv_series->weekdays[$curr_series['week_day']] ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        <?php endif; ?>
+            <?php endif; ?>
+        </section>
     </body>
 </html>
 
