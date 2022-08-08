@@ -24,7 +24,7 @@
             <div>
                 <ul>
                     <li>Design ID -- <?= $design_id ?></li>
-                    <li>Design Name -- <?= $split_percent ?></li>
+                    <li>Design Name -- <?= $design_name ?></li>
                     <li>Split Percent -- <?= $split_percent ?></li>
                 </ul>
             </div>
